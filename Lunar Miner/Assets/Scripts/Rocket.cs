@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class Rocket : MonoBehaviour
 {
+
+    private Rigidbody _rigidBody;
     // Start is called before the first frame update
     void Start()
     {
-        
+        _rigidBody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -20,16 +22,16 @@ public class Rocket : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            Debug.Log("Space pressed");
+            _rigidBody.AddRelativeForce(Vector3.up);
         }
 
         if (Input.GetKey(KeyCode.A)||Input.GetKey(KeyCode.LeftArrow))
         {
-            Debug.Log("Left");
+            transform.Rotate(Vector3.forward);
         }
         else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
-            Debug.Log("Right");
+            transform.Rotate(-Vector3.forward);
         }
     }
 }
