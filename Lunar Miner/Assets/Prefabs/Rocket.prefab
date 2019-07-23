@@ -681,7 +681,7 @@ GameObject:
   - component: {fileID: 2938867978267164194}
   - component: {fileID: 2938867978267164193}
   - component: {fileID: 2938867978267164192}
-  - component: {fileID: 3857569478709200596}
+  - component: {fileID: 1169233429}
   m_Layer: 0
   m_Name: Ship Nose
   m_TagString: Untagged
@@ -748,8 +748,8 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &3857569478709200596
-BoxCollider:
+--- !u!135 &1169233429
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -759,5 +759,5 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.75, y: 0.5, z: 0.75}
-  m_Center: {x: 0, y: 0.25, z: 0}
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

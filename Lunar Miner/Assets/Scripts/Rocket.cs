@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -54,19 +55,16 @@ public class Rocket : MonoBehaviour
         _rigidBody.freezeRotation = false;
     }
 
-    private IEnumerator VolumeFade(AudioSource audioSource,float endVolume,float fadeLength)
+    private void OnCollisionEnter(Collision collision)
     {
-        float startVolume = audioSource.volume;
-        float startTime = Time.time;
-        while (Time.time < startTime+fadeLength)
+        switch (collision.gameObject.tag)
         {
-            audioSource.volume = startVolume + (endVolume - startVolume) * ((Time.time - startTime) / fadeLength);
-            yield return null;
-        }
-
-        if (endVolume <= 0)
-        {
-            audioSource.Stop();
+            case "Friendly":
+                Debug.Log("Ok");
+                break;
+            default:
+                Debug.Log("Destruction");
+                break;
         }
     }
 }
