@@ -2,11 +2,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Rocket : MonoBehaviour
 {
+    enum State
+    {
+        Alive,
+        Dying,
+        Transcending
+    }
+
+    private State state = State.Alive;
     [SerializeField] private float rcsThrust = 100f;
     [SerializeField] private float mainThrust = 600f;
+    [SerializeField] private AudioClip mainEngineAudioClip;
+    [SerializeField] private AudioClip deathAudioClip;
+    [SerializeField] private AudioClip winAudioClip;
+    [SerializeField] private float timeForNoControlState = 1f;
     private Rigidbody _rigidBody;
     private AudioSource _audioSource;
     // Start is called before the first frame update
@@ -19,27 +32,35 @@ public class Rocket : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Thrust();
-        Rotate();
+        if (state == State.Alive)
+        {
+            RespondToThrustInput();
+            RespondToRotateInput();
+        }
     }
 
-    private void Thrust()
+    private void RespondToThrustInput()
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            _rigidBody.AddRelativeForce(Vector3.up* mainThrust);
-            if (!_audioSource.isPlaying)
-            {
-                _audioSource.Play();
-            }
+            ApplyThrust();
         }
         else
         {
             _audioSource.Stop();
-            //StartCoroutine(VolumeFade(_audioSource, 0f, soundFadeLength));
         }
     }
-    private void Rotate()
+
+    private void ApplyThrust()
+    {
+        _rigidBody.AddRelativeForce(Vector3.up * mainThrust);
+        if (!_audioSource.isPlaying)
+        {
+            _audioSource.PlayOneShot(mainEngineAudioClip);
+        }
+    }
+
+    private void RespondToRotateInput()
     {
 
         _rigidBody.freezeRotation = true;
@@ -57,14 +78,47 @@ public class Rocket : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (state != State.Alive) return;
         switch (collision.gameObject.tag)
         {
             case "Friendly":
-                Debug.Log("Ok");
+                break;
+            case "Finish":
+                FinishLevel();
+                break;
+            case "Secret":
                 break;
             default:
-                Debug.Log("Destruction");
+                RespondToRocketDamage();
                 break;
         }
+    }
+
+    private void RespondToRocketDamage()
+    {
+        state = State.Dying;
+        _audioSource.Stop();
+        _audioSource.PlayOneShot(deathAudioClip,0.2f);
+        Invoke(nameof(ResetLevel), timeForNoControlState);
+        Debug.Log("Hit");
+    }
+
+    private void FinishLevel()
+    {
+        state = State.Transcending;
+        _audioSource.Stop();
+        _audioSource.PlayOneShot(winAudioClip, 0.3f);
+        Invoke(nameof(LoadNextScene), timeForNoControlState);
+    }
+
+    private void ResetLevel()
+    {
+        
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void LoadNextScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
