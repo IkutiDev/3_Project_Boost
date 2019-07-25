@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Level 1.unity
+    path: Assets/Scenes/Level 1 Among the Stars.unity
     guid: 2784ec038daa1d34bbb3c1b3301c48cf
   m_configObjects: {}
