@@ -19,10 +19,13 @@ public class Rocket : MonoBehaviour
     [SerializeField] private AudioClip mainEngineAudioClip;
     [SerializeField] private AudioClip deathAudioClip;
     [SerializeField] private AudioClip winAudioClip;
+    [SerializeField] private ParticleSystem mainEngineParticleSystem;
+    [SerializeField] private ParticleSystem deathParticleSystem;
+    [SerializeField] private ParticleSystem winParticleSystem;
     [SerializeField] private float timeForNoControlState = 1f;
     private Rigidbody _rigidBody;
     private AudioSource _audioSource;
-    // Start is called before the first frame update
+
     void Start()
     {
         _rigidBody = GetComponent<Rigidbody>();
@@ -48,6 +51,7 @@ public class Rocket : MonoBehaviour
         else
         {
             _audioSource.Stop();
+            mainEngineParticleSystem.Stop();
         }
     }
 
@@ -58,6 +62,7 @@ public class Rocket : MonoBehaviour
         {
             _audioSource.PlayOneShot(mainEngineAudioClip);
         }
+        mainEngineParticleSystem.Play();
     }
 
     private void RespondToRotateInput()
@@ -99,6 +104,8 @@ public class Rocket : MonoBehaviour
         state = State.Dying;
         _audioSource.Stop();
         _audioSource.PlayOneShot(deathAudioClip,0.2f);
+        mainEngineParticleSystem.Stop();
+        deathParticleSystem.Play();
         Invoke(nameof(ResetLevel), timeForNoControlState);
         Debug.Log("Hit");
     }
@@ -108,6 +115,8 @@ public class Rocket : MonoBehaviour
         state = State.Transcending;
         _audioSource.Stop();
         _audioSource.PlayOneShot(winAudioClip, 0.3f);
+        mainEngineParticleSystem.Stop();
+        winParticleSystem.Play();
         Invoke(nameof(LoadNextScene), timeForNoControlState);
     }
 
