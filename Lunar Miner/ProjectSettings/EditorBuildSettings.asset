@@ -36,6 +36,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 0 Go Farming.unity
     guid: 65a7388cda3026e479e3db346f35fc47
   - enabled: 1
-    path: Assets/Scenes/Options.unity
-    guid: 36ebfcd2e3e7c864a856f63525b50cb9
+    path: Assets/Scenes/Credits.unity
+    guid: 17f75590861f411488bf2e99b3dd3c8b
   m_configObjects: {}
