@@ -260,7 +260,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rcsThrust: 200
-  mainThrust: 15
+  mainThrust: 1000
   mainEngineAudioClip: {fileID: 8300000, guid: fe89823e7bcd09b4b810d20066e5148d, type: 3}
   deathAudioClip: {fileID: 8300000, guid: 4fe88706a2394b841badd01a35d76cc2, type: 3}
   winAudioClip: {fileID: 8300000, guid: 48e36517102d2164ab40cb9d9cdb93be, type: 3}

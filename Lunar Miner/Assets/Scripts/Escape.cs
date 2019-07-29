@@ -8,9 +8,6 @@ public class Escape : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Player"))
-        {
-            SceneManager.LoadScene("Level 0 Go Farming");
-        }
+        SceneManager.LoadScene("Level 0 Go Farming");
     }
 }
