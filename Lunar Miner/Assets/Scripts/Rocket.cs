@@ -23,6 +23,8 @@ public class Rocket : MonoBehaviour
     [SerializeField] private ParticleSystem deathParticleSystem;
     [SerializeField] private ParticleSystem winParticleSystem;
     [SerializeField] private float timeForNoControlState = 1f;
+    [SerializeField] private GameObject shield;
+    private int currentShieldLevel;
     private Rigidbody _rigidBody;
     private AudioSource _audioSource;
 
@@ -40,6 +42,8 @@ public class Rocket : MonoBehaviour
             RespondToThrustInput();
             RespondToRotateInput();
         }
+
+        shield.SetActive(currentShieldLevel > 0);
     }
 
     private void RespondToThrustInput()
@@ -92,18 +96,38 @@ public class Rocket : MonoBehaviour
                 FinishLevel();
                 break;
             case "Secret":
+                GainShield();
                 break;
             default:
-                RespondToRocketDamage();
+                if (currentShieldLevel <= 0)
+                {
+                    RespondToRocketDamage();
+                }
+                else
+                {
+                    LooseShield();
+                }
                 break;
         }
     }
 
+    private void LooseShield()
+    {
+        currentShieldLevel--;
+    }
+
+    private void GainShield()
+    {
+        if (currentShieldLevel <= 3)
+        {
+            currentShieldLevel++;
+        }
+    }
     private void RespondToRocketDamage()
     {
         state = State.Dying;
         _audioSource.Stop();
-        _audioSource.PlayOneShot(deathAudioClip,0.2f);
+        _audioSource.PlayOneShot(deathAudioClip, 0.2f);
         mainEngineParticleSystem.Stop();
         deathParticleSystem.Play();
         Invoke(nameof(ResetLevel), timeForNoControlState);
@@ -122,7 +146,7 @@ public class Rocket : MonoBehaviour
 
     private void ResetLevel()
     {
-        
+
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
@@ -131,3 +155,4 @@ public class Rocket : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }
+

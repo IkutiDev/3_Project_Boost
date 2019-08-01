@@ -8,6 +8,10 @@ public class Escape : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene("Level 0 Go Farming");
+        if (PlayerPrefs.GetInt("EndingZero") != 1)
+        {
+            SceneManager.LoadScene("Level 0 Go Farming");
+            PlayerPrefs.SetInt("EndingZero", 1);
+        }
     }
 }
