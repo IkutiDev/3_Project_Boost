@@ -360,7 +360,7 @@ MonoBehaviour:
   deathParticleSystem: {fileID: 3713924612356585113}
   winParticleSystem: {fileID: 7568877868821643268}
   timeForNoControlState: 3
-  _shield: {fileID: 823861775037073618}
+  shield: {fileID: 823861775037073618}
 --- !u!1 &2938867977156146249
 GameObject:
   m_ObjectHideFlags: 0
@@ -947,6 +947,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2938867976891410101}
     m_Modifications:
+    - target: {fileID: 3955288433390043580, guid: f8d905530174ff544b191ebc62ffa6bd,
+        type: 3}
+      propertyPath: m_Name
+      value: ThrustFireEffect
+      objectReference: {fileID: 0}
     - target: {fileID: 3955288433389952412, guid: f8d905530174ff544b191ebc62ffa6bd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1002,11 +1007,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3955288433390043580, guid: f8d905530174ff544b191ebc62ffa6bd,
-        type: 3}
-      propertyPath: m_Name
-      value: ThrustFireEffect
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8d905530174ff544b191ebc62ffa6bd, type: 3}
 --- !u!4 &1841411988540621921 stripped
@@ -1028,6 +1028,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2938867976891410101}
     m_Modifications:
+    - target: {fileID: 6699202784533961211, guid: 27558799802a2924ab6c1a52b9589bb3,
+        type: 3}
+      propertyPath: m_Name
+      value: RocketExplosion
+      objectReference: {fileID: 0}
     - target: {fileID: 6699202784533787389, guid: 27558799802a2924ab6c1a52b9589bb3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1083,11 +1088,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6699202784533961211, guid: 27558799802a2924ab6c1a52b9589bb3,
-        type: 3}
-      propertyPath: m_Name
-      value: RocketExplosion
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 27558799802a2924ab6c1a52b9589bb3, type: 3}
 --- !u!4 &3713924612374948339 stripped
@@ -1109,6 +1109,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2938867976891410101}
     m_Modifications:
+    - target: {fileID: 1920922338689614673, guid: c6c803c65a25d484b9011627c40e8c4b,
+        type: 3}
+      propertyPath: m_Name
+      value: SuccessFireworks
+      objectReference: {fileID: 0}
     - target: {fileID: 1920922338689389953, guid: c6c803c65a25d484b9011627c40e8c4b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1163,11 +1168,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1920922338689614673, guid: c6c803c65a25d484b9011627c40e8c4b,
-        type: 3}
-      propertyPath: m_Name
-      value: SuccessFireworks
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6c803c65a25d484b9011627c40e8c4b, type: 3}

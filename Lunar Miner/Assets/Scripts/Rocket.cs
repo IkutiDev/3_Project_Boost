@@ -24,12 +24,24 @@ public class Rocket : MonoBehaviour
     [SerializeField] private ParticleSystem winParticleSystem;
     [SerializeField] private float timeForNoControlState = 1f;
     [SerializeField] private GameObject shield;
-    private int currentShieldLevel;
+    private GameObject _shieldLevelUI;
+
+    private int CurrentShieldLevel
+    {
+        get => PlayerPrefs.GetInt("Shield");
+        set
+        {
+            PlayerPrefs.SetInt("Shield", value);
+            _shieldLevelUI.GetComponent<ShieldUIScript>().ChangeShield(PlayerPrefs.GetInt("Shield"));
+        }
+    }
+    private int _currentShieldLevel;
     private Rigidbody _rigidBody;
     private AudioSource _audioSource;
 
     void Start()
     {
+        _shieldLevelUI = GameObject.Find("Shield Value Images");
         _rigidBody = GetComponent<Rigidbody>();
         _audioSource = GetComponent<AudioSource>();
     }
@@ -43,7 +55,7 @@ public class Rocket : MonoBehaviour
             RespondToRotateInput();
         }
 
-        shield.SetActive(currentShieldLevel > 0);
+        shield.SetActive(CurrentShieldLevel > 0);
     }
 
     private void RespondToThrustInput()
@@ -97,9 +109,10 @@ public class Rocket : MonoBehaviour
                 break;
             case "Secret":
                 GainShield();
+                collision.gameObject.tag = "Friendly";
                 break;
             default:
-                if (currentShieldLevel <= 0)
+                if (CurrentShieldLevel <= 0)
                 {
                     RespondToRocketDamage();
                 }
@@ -113,14 +126,15 @@ public class Rocket : MonoBehaviour
 
     private void LooseShield()
     {
-        currentShieldLevel--;
+        CurrentShieldLevel--;
     }
 
     private void GainShield()
     {
-        if (currentShieldLevel <= 3)
+        CurrentShieldLevel++;
+        if (CurrentShieldLevel >= 3)
         {
-            currentShieldLevel++;
+            CurrentShieldLevel = 3;
         }
     }
     private void RespondToRocketDamage()

@@ -8,6 +8,8 @@ public class ResetPlayerPrefs : MonoBehaviour
     void Start()
     {
         PlayerPrefs.DeleteKey("EndingZero");
+        PlayerPrefs.DeleteKey("Shield");
+        PlayerPrefs.SetInt("Shield",0);
     }
 
 }
