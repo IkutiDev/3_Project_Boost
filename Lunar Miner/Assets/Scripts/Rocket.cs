@@ -35,6 +35,8 @@ public class Rocket : MonoBehaviour
             _shieldLevelUI.GetComponent<ShieldUIScript>().ChangeShield(PlayerPrefs.GetInt("Shield"));
         }
     }
+
+    private bool canGetHit=true;
     private int _currentShieldLevel;
     private Rigidbody _rigidBody;
     private AudioSource _audioSource;
@@ -112,14 +114,19 @@ public class Rocket : MonoBehaviour
                 collision.gameObject.tag = "Friendly";
                 break;
             default:
-                if (CurrentShieldLevel <= 0)
+                if (canGetHit)
                 {
-                    RespondToRocketDamage();
+                    if (CurrentShieldLevel <= 0)
+                    {
+                        RespondToRocketDamage();
+                    }
+                    else
+                    {
+                        canGetHit = false;
+                        LooseShield();
+                    }
                 }
-                else
-                {
-                    LooseShield();
-                }
+
                 break;
         }
     }
@@ -127,8 +134,14 @@ public class Rocket : MonoBehaviour
     private void LooseShield()
     {
         CurrentShieldLevel--;
+        StartCoroutine(InvincibilityAfterLostShield());
     }
 
+    private IEnumerator InvincibilityAfterLostShield()
+    {
+        yield return new WaitForSeconds(2);
+        canGetHit = true;
+    }
     private void GainShield()
     {
         CurrentShieldLevel++;
