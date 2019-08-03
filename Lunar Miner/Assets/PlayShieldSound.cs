@@ -5,13 +5,8 @@ using UnityEngine;
 
 public class PlayShieldSound : MonoBehaviour
 {
-    private bool hasPlayed;
-    private void OnCollisionEnter(Collision other)
+    public void PlayGainShieldSound()
     {
-        if (other.gameObject.CompareTag("Player") && !hasPlayed)
-        {
-            GetComponent<AudioSource>().Play();
-            hasPlayed = true;
-        }
+        GetComponent<AudioSource>().Play();
     }
 }

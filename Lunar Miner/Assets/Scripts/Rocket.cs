@@ -133,8 +133,11 @@ public class Rocket : MonoBehaviour
                 FinishLevel();
                 break;
             case "Secret":
-                GainShield();
-                collision.gameObject.tag = "Friendly";
+                if (CurrentShieldLevel < 3)
+                {
+                    GainShield(collision.gameObject);
+                    collision.gameObject.tag = "Friendly";
+                }
                 break;
             default:
                 if (canGetHit)
@@ -165,18 +168,19 @@ public class Rocket : MonoBehaviour
         yield return new WaitForSeconds(1);
         canGetHit = true;
     }
-    private void GainShield()
+    private void GainShield(GameObject other)
     {
-        //state = State.Transcending;
         _audioSource.Stop();
-        _audioSource.PlayOneShot(shieldAudioClip, 0.3f);
         shieldParticleSystem.Play();
         CurrentShieldLevel++;
+        if (CurrentShieldLevel <= 3)
+        {
+            other.GetComponent<PlayShieldSound>().PlayGainShieldSound();
+        }
         if (CurrentShieldLevel >= 3)
         {
             CurrentShieldLevel = 3;
         }
-        //StartCoroutine(nameof(GainShield),timeForShield);
     }
     private void RespondToRocketDamage()
     {
