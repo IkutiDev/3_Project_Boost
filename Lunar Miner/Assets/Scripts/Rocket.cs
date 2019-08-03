@@ -19,10 +19,13 @@ public class Rocket : MonoBehaviour
     [SerializeField] private AudioClip mainEngineAudioClip;
     [SerializeField] private AudioClip deathAudioClip;
     [SerializeField] private AudioClip winAudioClip;
+    [SerializeField] private AudioClip shieldAudioClip;
     [SerializeField] private ParticleSystem mainEngineParticleSystem;
     [SerializeField] private ParticleSystem deathParticleSystem;
     [SerializeField] private ParticleSystem winParticleSystem;
+    [SerializeField] private ParticleSystem shieldParticleSystem;
     [SerializeField] private float timeForNoControlState = 1f;
+    [SerializeField] private float timeForShield = 1f;
     [SerializeField] private GameObject shield;
     private GameObject _shieldLevelUI;
 
@@ -57,7 +60,27 @@ public class Rocket : MonoBehaviour
             RespondToRotateInput();
         }
 
+        if (Debug.isDebugBuild)
+        {
+            RespondToDebugKeys();
+        }
+
         shield.SetActive(CurrentShieldLevel > 0);
+
+    }
+
+    private void RespondToDebugKeys()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            LoadNextScene();
+        }
+
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            StopAllCoroutines();
+            canGetHit = !canGetHit;
+        }
     }
 
     private void RespondToThrustInput()
@@ -139,16 +162,21 @@ public class Rocket : MonoBehaviour
 
     private IEnumerator InvincibilityAfterLostShield()
     {
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         canGetHit = true;
     }
     private void GainShield()
     {
+        //state = State.Transcending;
+        _audioSource.Stop();
+        _audioSource.PlayOneShot(shieldAudioClip, 0.3f);
+        shieldParticleSystem.Play();
         CurrentShieldLevel++;
         if (CurrentShieldLevel >= 3)
         {
             CurrentShieldLevel = 3;
         }
+        //StartCoroutine(nameof(GainShield),timeForShield);
     }
     private void RespondToRocketDamage()
     {
@@ -175,6 +203,11 @@ public class Rocket : MonoBehaviour
     {
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void ShieldGained()
+    {
+        state = State.Alive;
     }
 
     private void LoadNextScene()

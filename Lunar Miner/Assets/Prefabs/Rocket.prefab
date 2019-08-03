@@ -356,9 +356,11 @@ MonoBehaviour:
   mainEngineAudioClip: {fileID: 8300000, guid: fe89823e7bcd09b4b810d20066e5148d, type: 3}
   deathAudioClip: {fileID: 8300000, guid: 4fe88706a2394b841badd01a35d76cc2, type: 3}
   winAudioClip: {fileID: 8300000, guid: 48e36517102d2164ab40cb9d9cdb93be, type: 3}
+  shieldAudioClip: {fileID: 8300000, guid: f82ba9f841168a1429f196de3b9fbbed, type: 3}
   mainEngineParticleSystem: {fileID: 1841411988558971169}
   deathParticleSystem: {fileID: 3713924612356585113}
   winParticleSystem: {fileID: 7568877868821643268}
+  shieldParticleSystem: {fileID: 1651209896166383363}
   timeForNoControlState: 3
   shield: {fileID: 823861775037073618}
 --- !u!1 &2938867977156146249
@@ -937,6 +939,12 @@ PrefabInstance:
 --- !u!4 &1651209896184763973 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 211478677895305325, guid: d75cf7c2ae2e1ec468bcd08159101b36,
+    type: 3}
+  m_PrefabInstance: {fileID: 1442581359124483624}
+  m_PrefabAsset: {fileID: 0}
+--- !u!198 &1651209896166383363 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 211478677881114923, guid: d75cf7c2ae2e1ec468bcd08159101b36,
     type: 3}
   m_PrefabInstance: {fileID: 1442581359124483624}
   m_PrefabAsset: {fileID: 0}
